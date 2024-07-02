@@ -5,6 +5,12 @@ import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class MoviesService {
+  findOne(id: string) {
+      throw new Error("Method not implemented.");
+  }
+  findAll() {
+      throw new Error("Method not implemented.");
+  }
   private readonly omdbApiKey: string;
 
   constructor(
