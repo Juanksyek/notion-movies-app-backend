@@ -1,11 +1,19 @@
 version: '3'
 services:
   backend:
-    build: .
+    build:
+      context: ./notion-movies-app-backend
+      dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - '3000:3000'
     environment:
       - NOTION_API_KEY=${NOTION_API_KEY}
       - NOTION_DATABASE_ID=${NOTION_DATABASE_ID}
       - OMDB_API_KEY=${OMDB_API_KEY}
       - GOOGLE_BOOKS_API_KEY=${GOOGLE_BOOKS_API_KEY}
+    networks:
+      - notion-net
+
+networks:
+  notion-net:
+    driver: bridge

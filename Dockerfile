@@ -1,24 +1,20 @@
-# Ejemplo de Dockerfile para Nest.js
+# Usa la imagen base de Node.js
+FROM node:18
 
-# Stage 1: Build the application
-FROM node:18-alpine as builder
-
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
+# Copia los archivos del proyecto al contenedor
 COPY package*.json ./
+
+# Instala las dependencias
 RUN npm install
 
+# Copia el resto de los archivos al contenedor
 COPY . .
-RUN npm run build
 
-# Stage 2: Serve the application from Nginx
-FROM node:18-alpine
+# Expone el puerto en el que tu aplicación Nest.js se ejecutará
+EXPOSE 3000
 
-WORKDIR /app
-
-COPY --from=builder /app/dist ./dist
-COPY package*.json ./
-
-RUN npm install --only=production
-
-CMD ["node", "dist/main"]
+# Comando para ejecutar la aplicación
+CMD ["npm", "run", "start:dev"]
